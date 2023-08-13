@@ -1,0 +1,50 @@
+animate wow _------------------------------------------------------------------------------------------
+
+wp_enqueue_style( 'rawgit', 'https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css', array(), '', 'screen' );
+wp_enqueue_script( 'rawgit-wow', 'https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js', array(), '', true );
+wow = new WOW(
+				{
+				boxClass: 'c-effect--fade-in-up', // default
+				animateClass: 'is-inview', // default
+				offset: 0, // default
+				mobile: true, // default
+				live: true // default
+				}
+				)
+			wow.init();
+<script> new WOW().init(); </script>
+
+.c-effect {
+    backface-visibility: hidden;
+    transition: transform 1200ms linear, opacity 1000ms ease-in;
+}
+.c-effect.is-inview {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: transform 1s cubic-bezier(0.08, 0.92, 0.35, 1), opacity 0.7s ease-in;
+}
+
+.c-effect--fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+}
+Tap  js------------------------------------------------------------------------------------------
+	$('.p-top-info-tabs a').click(function() { 
+			
+		var id = $(this).attr('href');
+		$('.is-current').removeClass('is-current');
+		$(this).addClass('is-current');
+		$('.p-top-info-excerpts').hide();
+		$(id).show();
+		return false;
+	});
+
+Hàm Cty------------------------------------------------------------------------------------------
+
+<?php include_once get_template_directory() . '/inc/structure/breadcrumbs.php'; ?>
+
+---breadcrumbs
+
+<?php echo wp_get_attachment_image( get_field( 'banner' ), 'full' ); ?> ảnh theo ID
+<?php echo get_BFI_thumbnail( $list_top_link['img'], 883, 650 ); ?> ảnh đã crop có hàm viết sẵn
+
