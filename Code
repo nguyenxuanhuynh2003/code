@@ -48,3 +48,87 @@ Hàm Cty------------------------------------------------------------------------
 <?php echo wp_get_attachment_image( get_field( 'banner' ), 'full' ); ?> ảnh theo ID
 <?php echo get_BFI_thumbnail( $list_top_link['img'], 883, 650 ); ?> ảnh đã crop có hàm viết sẵn
 
+gọi post và phân trang mẫu cty------------------------------------------------------------------------------------------
+
+<?php            
+        $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+        $args = array(
+            'post_type' => 'loichua',
+            'post_status' => 'publish',
+            'posts_per_page' => 2,
+            'paged' => $paged
+        );
+        $the_query = new WP_Query($args);
+        if ( $the_query->have_posts() ) :
+ while ( $the_query->have_posts() ) : $the_query->the_post();
+
+ anothemes_pagination( $the_query );
+
+-----------------------------------------------------
+tạo custom post type
+function tao_custom_post_type() {
+
+    register_post_type( 'supporter',
+        array(
+            'labels' => array(
+                'name' => __( 'Supporter' ),
+                'singular_name' => __( 'Supporter' )
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array('slug' => 'supporter'),
+            'show_in_rest' => true,
+            'menu_position' => 10,
+            'supports'      => array( 'title', 'thumbnail', 'editor','excerpt' ,),
+  
+        )
+    );
+$labels = array(
+        'name' => __( 'Supporter Category', 'anothemes' ),
+        'singular_name' => __( 'Supporter Category', 'anothemes' ),
+    );    
+ 
+    // Now register the taxonomy
+    register_taxonomy('supporter_cat', 'supporter', array(
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array( 'slug' => 'supporter_cat', 'hierarchical' => true ),
+    ));
+});
+add_action('init', 'tao_custom_post_type');
+
+___________________________________________________________________________
+
+ ẩn editor------------------------------------------------------------------------------------------
+
+add_action('admin_init', 'hide_editor');
+function hide_editor() {    
+$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'];
+    if (!isset($post_id))
+        return;
+    if ($post_id == 19  || $post_id == 471 || $post_id == 136 || $post_id == 185 || $post_id == 92 || $post_id == 119) {
+        remove_post_type_support('page', 'editor');
+    }
+}
+upload ảnh lên file ------------------------------------------------------------------------------------------
+<script>
+	jQuery('#upload-photo').change(function(){
+		const imagePreview = document.getElementById('image-preview1');
+		const file = this.files[0];
+		// Bây giờ, bạn có thể xử lý các thao tác với tệp ở đây.
+		const reader = new FileReader();
+
+		reader.addEventListener('load', function() {
+			const imageUrl = reader.result;
+			const img = document.createElement('img');
+			img.setAttribute('src', imageUrl);
+			imagePreview.innerHTML = '';
+			imagePreview.appendChild(img);
+		});
+		reader.readAsDataURL(file);
+	});
+</script>
