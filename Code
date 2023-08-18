@@ -1,3 +1,106 @@
+Login - update user-------------------------------------------------------------------
+if (isset($_POST['register']) && !empty($_POST['password'])) {
+    // Validate form data
+    $user_email = trim($_POST['user_email']);
+    $user_name = trim($_POST['user_name']);
+    $password = trim($_POST['password']);
+    $address = trim($_POST['address']);
+    $sdt = trim($_POST['sdt']);
+    $enter_password = trim($_POST['enter_password']);
+    $words = explode(' ', $user_name);
+    $first_name = $words[0];
+    array_shift($words);
+    $last_name = implode(' ', $words);
+    $display_name = $user_name;
+
+    if (empty($user_email)) {
+        $error_message = 'Bạn chưa nhập email.';
+    } elseif (email_exists($user_email)) {
+        $error_message = 'Email này đã tồn tại.';
+    } elseif (empty($user_name)) {
+        $error_message = 'Bạn chưa nhập tên đăng nhập (username).';
+    } elseif (username_exists($user_name)) {
+        $error_message = 'Tên đăng nhập (username) này đã tồn tại.';
+    } elseif (empty($password)) {
+        $error_message = 'Bạn chưa nhập mật khẩu.';
+    }
+    elseif (empty($enter_password)) {
+        $error_message = 'Bạn hãy nhập lại mật khẩu.';
+    } elseif ($enter_password !== $password) {
+         $error_message = 'Mật khẩu nhập lại không khớp.';
+    } elseif (empty($sdt)) {
+        $error_message = 'Bạn chưa nhập số điện thoại.';
+    } elseif (empty($address)) {
+        $error_message = 'Bạn chưa nhập địa chỉ.';
+    } else {
+        $user_data = array(
+            'user_login' => $user_email,
+            'user_email' => $user_email,
+            'first_name' => $first_name,
+            'last_name'  => $last_name,
+            'display_name' => $display_name,
+            'user_pass'  => $password,
+        );
+
+        // Create new user
+        $user_id = wp_insert_user($user_data);
+
+        if (!is_wp_error($user_id)) {
+            update_field('user_sdt', $sdt, 'user_'.$user_id);
+            update_field('address_uesr', $address, 'user_'.$user_id);
+            wp_redirect($my_page);
+            exit;
+        } else {
+            $error_message = 'Đăng ký không thành công. Vui lòng thử lại.';
+        }
+    }
+}
+ update user-------------------------------------------------------------------
+if ( is_user_logged_in() ) { 
+		$user_id = get_current_user_id();
+		
+}
+	
+  if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    // Lấy giá trị từ form
+  		
+		$name = $_POST['user_name'];
+	    $gender = $_POST['user_gender_id'];
+	    $age = $_POST['user_age_id'];
+	    $country = $_POST['user_country_id'];
+	    $residence = $_POST['user_residence_id'];
+	   
+			  
+	    // Cập nhật thông tin người dùng
+	 
+	    	update_user_meta( $user_id, 'first_name', $name);
+	    update_field('gender', $gender, 'user_'.$user_id);
+	    update_field('age', $age, 'user_'.$user_id);
+	    update_field('country', $country, 'user_'.$user_id);
+	    update_field('residence', $residence, 'user_'.$user_id);
+			
+		if(!empty($_FILES['user_photo_image']['name']) && isset($_FILES['user_photo_image'])) {
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		  // Kiểm tra nếu có tệp được gửi lên
+		  	$image_url = wp_get_attachment_url($image_id);// Tải tệp lên Media Library và lấy ID
+		    $image_id = media_handle_upload('user_photo_image', 0);
+		    $field_key = 'avatar';
+		 	update_field($field_key, $image_id, 'user_' . $user_id);
+		 	$ass= "更新しました";
+		 		echo '<div class="alert alert-success ass" id="success-message">' . $ass . '</div>';
+
+		 	?>
+		
+	      	<?php
+
+		}
+
+	
+}
+
+
 animate wow _------------------------------------------------------------------------------------------
 
 wp_enqueue_style( 'rawgit', 'https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css', array(), '', 'screen' );
