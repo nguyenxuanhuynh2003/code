@@ -135,6 +135,24 @@ if ( is_user_logged_in() ) {
 
 
 animate wow _------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------ 
+của thư viện animate
+<script>
+	wow = new WOW(
+		{
+			boxClass: 'wow',
+			animateClass: 'animated',
+			offset:0,
+			mobile: false
+			//mobile: true
+		}
+		);
+	wow.init();
+</script>
+
+<div class="title-about  wow fadeInUp" data-wow-delay="0.2s">
+ </div>
+------------------------------------------------------------------------------------------
 
 wp_enqueue_style( 'rawgit', 'https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css', array(), '', 'screen' );
 wp_enqueue_script( 'rawgit-wow', 'https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js', array(), '', true );
