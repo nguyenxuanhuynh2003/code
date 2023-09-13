@@ -1,6 +1,8 @@
 GET Url image to id ---------------------------------------------------------------------------
 $image_id = wp_get_attachment_url(ID);
 esc_url ($image_id);
+Convert url to iframe---------------------------------------------------------------------------
+https://syframework.alwaysdata.net/convert-youtube-url-to-iframe
 
 Thêm Quên mật khẩu ---------------------------------------------------------------------------
 add_action( 'login_form_bottom', 'add_lost_password_link' );
