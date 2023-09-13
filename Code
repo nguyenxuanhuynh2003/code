@@ -1,3 +1,24 @@
+GET Url image to id ---------------------------------------------------------------------------
+$image_id = wp_get_attachment_url(ID);
+esc_url ($image_id);
+
+Thêm Quên mật khẩu ---------------------------------------------------------------------------
+add_action( 'login_form_bottom', 'add_lost_password_link' );
+function add_lost_password_link() {
+	return '<p class="lost-password"><a href="/wp-login.php?action=lostpassword">' . __( 'Quên mật khẩu?', 'anothemes' ) . '</a></p>';
+}
+/* Function which displays your post date in time ago format */---------------------------------------------------------------------------
+function meks_time_ago( $current_date ) {
+	return human_time_diff( $current_date, current_time( 'timestamp' ) ).' '.__( 'trước' );
+}
+remove_admin_bar_---------------------------------------------------------------------------
+
+add_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar() {
+if (!current_user_can('administrator') && !is_admin()) {
+show_admin_bar(false);
+}
+}
 Send Mail _---------------------------------------------------------------------------
 <?php 
 	if(isset($_POST['submit'])){
