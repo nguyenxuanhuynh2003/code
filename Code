@@ -155,7 +155,26 @@ if ( is_user_logged_in() ) {
 
 	
 }
+get Category chính------------------------------------------------------------------------------------------
+function get_primary_category($post_id)
+{
+    $category_id = get_post_meta($post_id, '_yoast_wpseo_primary_category', true);
+    if ($category_id) {
+        $category = get_category($category_id);
+        $category_name = $category->name;
+        $category_url = get_category_link($category_id);
 
+        return array(
+            'name' => $category_name,
+            'url' => $category_url
+        );
+    }
+    return array(
+        'name' => '',
+        'url' => ''
+    );
+}
+?>
 
 animate wow _------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------ 
