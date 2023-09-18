@@ -1,3 +1,8 @@
+Load web vào  ---------------------------------------------------------------------------
+setTimeout(function(){
+        $( '.top-page .main-popup' ).addClass('open');
+    }, 2000);
+
 GET Url image to id ---------------------------------------------------------------------------
 $image_id = wp_get_attachment_url(ID);
 esc_url ($image_id);
