@@ -386,3 +386,38 @@ function track_custom_post_pt_watch ($post_ID) {
 }
 //adds the tracker to wp_head.
 add_action( 'wp_head', 'track_custom_post_pt_watch');
+
+Setup acf ------------------------------------------------------------------------------------------
+
+if( function_exists('acf_add_options_page') ) {
+		
+	$parent = acf_add_options_page(array(
+		'page_title'    => 'Theme General Settings',
+		'menu_title'    => 'Theme Settings',
+		'menu_slug'     => 'theme-general-settings',
+		'capability'    => 'edit_posts',
+		'redirect'      => false
+	));
+
+	acf_add_options_sub_page(array(
+        'page_title'  => __('Page settings'),
+        'menu_title'  => __('Page settings'),
+        'parent_slug' => $parent['menu_slug'],
+    ));
+	
+	
+}
+
+Add Remove class srcool ------------------------------------------------------------------------------------------
+
+$(window).scroll(function () {
+	var scrollDistance = $(window).scrollTop();
+
+	// Assign active class to nav links while scolling
+	$('.page-section').each(function (i) {
+		if ($(this).position().top <= scrollDistance) {
+			$('.rst-menu a.active').removeClass('active');
+			$('.rst-menu li').eq(i).find('a').addClass('active');
+		}
+	});
+}).scroll();
