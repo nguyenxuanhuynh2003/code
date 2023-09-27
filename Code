@@ -267,17 +267,17 @@ gọi post và phân trang mẫu cty--------------------------------------------
 
 -----------------------------------------------------
 tạo custom post type
-function tao_custom_post_type() {
+function add_custom_post_type() {
 
-    register_post_type( 'supporter',
+    register_post_type( 'product',
         array(
             'labels' => array(
-                'name' => __( 'Supporter' ),
-                'singular_name' => __( 'Supporter' )
+                'name' => __( 'Product' ),
+                'singular_name' => __( 'product' )
             ),
             'public' => true,
             'has_archive' => true,
-            'rewrite' => array('slug' => 'supporter'),
+            'rewrite' => array('slug' => 'product'),
             'show_in_rest' => true,
             'menu_position' => 10,
             'supports'      => array( 'title', 'thumbnail', 'editor','excerpt' ,),
@@ -285,22 +285,23 @@ function tao_custom_post_type() {
         )
     );
 $labels = array(
-        'name' => __( 'Supporter Category', 'anothemes' ),
-        'singular_name' => __( 'Supporter Category', 'anothemes' ),
+        'name' => __( 'Product Category', 'anothemes' ),
+        'singular_name' => __( 'Product Category', 'anothemes' ),
     );    
  
     // Now register the taxonomy
-    register_taxonomy('supporter_cat', 'supporter', array(
+    register_taxonomy('product_cat', 'product', array(
         'hierarchical' => true,
         'labels' => $labels,
         'show_ui' => true,
         'show_in_rest' => true,
         'show_admin_column' => true,
         'query_var' => true,
-        'rewrite' => array( 'slug' => 'supporter_cat', 'hierarchical' => true ),
+        'rewrite' => array( 'slug' => 'product_cat', 'hierarchical' => true ),
     ));
-});
-add_action('init', 'tao_custom_post_type');
+};
+add_action('init', 'add_custom_post_type');
+
 
 ___________________________________________________________________________
 
