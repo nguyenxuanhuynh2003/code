@@ -1,3 +1,5 @@
+get Content co code ---------------------------------------------------------------------------
+<?php echo  wpautop(get_the_content()); ?>
 Load web vào  ---------------------------------------------------------------------------
 setTimeout(function(){
         $( '.top-page .main-popup' ).addClass('open');
