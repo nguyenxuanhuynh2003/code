@@ -16,6 +16,20 @@ add_action( 'login_form_bottom', 'add_lost_password_link' );
 function add_lost_password_link() {
 	return '<p class="lost-password"><a href="/wp-login.php?action=lostpassword">' . __( 'Quên mật khẩu?', 'anothemes' ) . '</a></p>';
 }
+get Form Login
+<?php 
+            $args = array(
+                'echo'            => true,
+                'redirect'        => $my_page,
+                'remember'        => true,
+                'value_remember'  => true,
+                'form_id'         => 'form-login',
+            );
+
+            wp_login_form( $args );
+           
+        ?>
+
 /* Function which displays your post date in time ago format */---------------------------------------------------------------------------
 function meks_time_ago( $current_date ) {
 	return human_time_diff( $current_date, current_time( 'timestamp' ) ).' '.__( 'trước' );
