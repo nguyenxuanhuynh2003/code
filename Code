@@ -1,3 +1,14 @@
+Popup lồng ---------------------------------------------------------------------------
+        $("a.popup").on("click", function () {
+            $(this).fancybox();
+
+
+            $.fancybox.close();
+        });
+
+        $("a.popup").fancybox({
+            'hideOnContentClick': true,
+        });
 get Content co code ---------------------------------------------------------------------------
 <?php echo  wpautop(get_the_content()); ?>
 Load web vào  ---------------------------------------------------------------------------
