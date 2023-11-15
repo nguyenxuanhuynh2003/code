@@ -1,0 +1,52 @@
+Đổi ảnh duan Marwish-Gifts -----------------------------------------
+
+jQuery(document).on('click', '.wrap-select-form input', function (e) {
+        // e.preventDefault();
+        var load_more = jQuery(this);
+        var color = load_more.attr('data-val');
+        var url_ajax = load_more.attr('data-ajax');
+        var product_id = load_more.attr('data-product-id');
+        jQuery.ajax({
+            type: "POST",
+            url: url_ajax,
+            data: {
+                'action': 'rst_ajax_color',
+                'color': color,
+                'product_id': product_id
+            }
+        }).done(function (data) {
+            var items = jQuery(data);
+            load_more.parents('.product').find('.rst-gallery-product').html(items);
+        });
+    });
+
+
+add_action('wp_ajax_rst_ajax_color', 'rst_ajax_block_action');
+add_action('wp_ajax_nopriv_rst_ajax_color', 'rst_ajax_block_action');
+function rst_ajax_block_action() {
+	$selected_colors = $_POST['color'];
+	$product_id = $_POST['product_id'];
+	$selected_variation = null;
+	$product = new WC_Product_Variable($product_id);
+	$variations = $product->get_available_variations();
+	foreach ($variations as $variation) {
+		$color = $variation['attributes']['attribute_pa_color'];
+
+		if ($color === $selected_colors) {
+			$selected_variation = $variation;
+			break;
+		}
+	}
+	if ($selected_variation) {
+		$image_id = $selected_variation['image_id'];
+		if (get_BFI_thumbnail($image_id, 330, 460)) {
+			echo '<div class="rst-thumbnaill">' . get_BFI_thumbnail($image_id, 330, 460) . '</div>';
+		} else {
+			echo '<div class="rst-thumbnaill">' . get_BFI_thumbnail(get_post_thumbnail_id(), 330, 460) . '</div>';
+		}
+	} else {
+		echo '<div class="rst-thumbnaill">' . get_BFI_thumbnail(get_post_thumbnail_id(), 330, 460) . '</div>';
+	}
+	exit;
+}
+
