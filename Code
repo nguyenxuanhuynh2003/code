@@ -276,7 +276,7 @@ Hàm Cty------------------------------------------------------------------------
 <?php echo wp_get_attachment_image( get_field( 'banner' ), 'full' ); ?> ảnh theo ID
 <?php echo get_BFI_thumbnail( $list_top_link['img'], 883, 650 ); ?> ảnh đã crop có hàm viết sẵn
 
-gọi post và phân trang mẫu cty------------------------------------------------------------------------------------------
+get post và phân trang mẫu cty------------------------------------------------------------------------------------------
 
 <?php            
         $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
@@ -291,7 +291,9 @@ gọi post và phân trang mẫu cty--------------------------------------------
  while ( $the_query->have_posts() ) : $the_query->the_post();
 
  anothemes_pagination( $the_query );
-
+  endwhile;
+endif;
+wp_reset_postdata();
 -----------------------------------------------------
 tạo custom post type
 function add_custom_post_type() {
