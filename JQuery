@@ -12,6 +12,15 @@ custom button input[number]-----------------------------------------------------
             input[0].stepDown();
             $('.wrap-btn-cart button').removeAttr('disabled');
         });
+$('.click-hide').on('click', function (e) {
+				$('.l-sticky-menu-links').removeClass('is-show-footer');
+				$('.click-hide').css('z-index', '1');
+				$(this).css('z-index', '-1');
+				$('.click-hide').parent().find('.l-sticky-menu-col-inner span').css('color', '#333');
+				$(this).parent().find('.l-sticky-menu-col-inner span').css('color', '#3997BF');
+
+				$(this).parent().find('.l-sticky-menu-links').addClass('is-show-footer');
+			});
 Toggle class and slider ---------------------------------------------------------------------------
 $(".p-sp .box-p-sidebar").on('click', function () {
         if($(this).hasClass("active")){
