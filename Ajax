@@ -1,3 +1,8 @@
+url Ajax
+ var ajaxurl = load_ajax.ajaxurl;
+<?php echo esc_html(admin_url("admin-ajax.php")); ?>
+
+
 Đổi ảnh duan Marwish-Gifts -----------------------------------------
 
 jQuery(document).on('click', '.wrap-select-form input', function (e) {
