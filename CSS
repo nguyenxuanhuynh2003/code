@@ -1,0 +1,21 @@
+Scrool flex 
+ul{
+
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  overflow: hidden;
+}
+li{
+  flex-shrink: 0;
+}
+Giới hạn text
+p{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+không chính textarea
+    resize: none;
