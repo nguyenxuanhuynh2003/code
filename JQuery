@@ -1,4 +1,18 @@
-Toggle class and slider 
+check Width jQ---------------------------------------------------------------------------
+ if (window.innerWidth <= 1200) {
+custom button input[number]---------------------------------------------------------------------------
+ $('.woocommerce').on('click', '.stepup', function () {
+            var input = $(this).parent().find('[type=number]');
+            input[0].stepUp();
+            $('.wrap-btn-cart button').removeAttr('disabled');
+        });
+
+        $('.woocommerce').on('click', '.stepdown', function () {
+            var input = $(this).parent().find('[type=number]');
+            input[0].stepDown();
+            $('.wrap-btn-cart button').removeAttr('disabled');
+        });
+Toggle class and slider ---------------------------------------------------------------------------
 $(".p-sp .box-p-sidebar").on('click', function () {
         if($(this).hasClass("active")){
             $(this).parent().find('.p-cate-sidebar').slideUp();
@@ -48,6 +62,30 @@ upload ảnh lên file ---------------------------------------------------------
 		reader.readAsDataURL(file);
 	});
 </script>
+scrool header ------------------------------------------------------------------------------------------
+    jQuery(window).scroll(function ($) {
+        var wd_scroll = jQuery(window).width();
+        var hg_menu = jQuery('.site-header').innerHeight();
+        if (wd_scroll >= 992) {
+            if (jQuery(this).scrollTop() > (hg_menu + 70)) {
+                jQuery('.rst-height-fixed').show();
+                jQuery('.site-header').stop().addClass('rst_sticky');
+                jQuery('.header-search').stop().addClass('rst_sticky_search');
+
+            } else {
+                jQuery('.rst-height-fixed').hide();
+                jQuery('.site-header').stop().removeClass('rst_sticky');
+                jQuery('.header-search').stop().removeClass('rst_sticky_search');
+
+            }
+            if (jQuery(this).scrollTop() > (hg_menu + 200)) {
+                jQuery('.rst_sticky').stop().addClass('header-fixed-show');
+            } else {
+                jQuery('.rst_sticky').stop().removeClass('header-fixed-show');
+            }
+
+        }
+    });
 Add Remove class srcool ------------------------------------------------------------------------------------------
 
 $(window).scroll(function () {
