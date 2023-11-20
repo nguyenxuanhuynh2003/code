@@ -54,4 +54,53 @@ function rst_ajax_block_action() {
 	}
 	exit;
 }
+Login ajax 
+<script>
+	jQuery('.rst-btn-login').on('click', function (e) {
+		e.preventDefault();
+		var newUserName = jQuery('#username_login').val();
+		var newUserEmail = jQuery('#password_login').val();
+		var rememberMeChecked = jQuery('#rememberme').prop('checked');
+		var url_ajax = jQuery('#re-ajax').attr('data-ajax');
+		jQuery.ajax({
+			type: "POST",
+			url: url_ajax,
+			data: {
+				action: "register_user_front_end",
+				new_user_name: newUserName,
+				new_user_email: newUserEmail,
+				remember_me: rememberMeChecked
+			},
+			success: function (results) {
+				if (results === 'login_error') {
+					var errorMessage = 'Login unsuccessful. Please check your login information again.';
+					var errorHtml = '<ul class="woocommerce-error" role="alert"><li>' + errorMessage + '</li></ul>';
+					jQuery('.woocommerce-notices-wrapper.errol-login').html(errorHtml);
+				} else {
+					window.location.href = '<?php echo get_site_url(); ?>';
+				}
+			},
+			
+			error: function (results) {
 
+			}
+		});
+	});
+</script>
+add_action('wp_ajax_register_user_front_end', 'register_user_front_end');
+add_action('wp_ajax_nopriv_register_user_front_end', 'register_user_front_end');
+
+function register_user_front_end()
+{
+	$new_user_name = $_POST['new_user_name'];
+	$new_user_email = $_POST['new_user_email'];
+	$remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : false;
+	$user = wp_authenticate($new_user_name, $new_user_email);
+	if (is_wp_error($user)) {
+		wp_send_json('login_error'); // Trả về giá trị 'login_error' cho mã JavaScript
+	} else {
+		wp_set_auth_cookie($user->ID, $remember_me);
+		wp_send_json('success'); // Trả về giá trị 'success' cho mã JavaScript
+	}
+	die;
+}
