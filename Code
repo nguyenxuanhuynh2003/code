@@ -1,3 +1,43 @@
+Hàm gọi cắt ảnh ---------------------------------------------------------------------------
+/**
+ * Print URL image with params by BFI thumb
+ *
+ * @since  1.0
+ * @return string (url)
+ */
+function get_BFI_thumbnail($att, $width, $height = false, $surl = false, $classes = NULL)
+{
+	global $post;
+
+	$classes = $classes ? $classes : '';
+
+	if (is_numeric($att) == true) :
+
+		$att_id = $att;
+
+		$url = wp_get_attachment_image_src($att_id, 'full');
+		if ($height == false) {
+			$image = aq_resize($url[0], $width, false);
+		} else {
+			$image = aq_resize($url[0], $width, $height, true);
+		}
+
+		$image_alt = get_post_meta($att_id, '_wp_attachment_image_alt', true);
+
+		if ($surl == true) {
+			return $image;
+		} else {
+			return '<img class="aq_thumb' . $classes . '" src="' . $image . '" alt="' . $image_alt . '" />';
+		}
+
+	else :
+		return false;
+	endif;
+}
+
+
+
+
 Get content  ---------------------------------------------------------------------------
 <?php get_template_part('template-parts/content', 'work'); ?>
 Popup lồng ---------------------------------------------------------------------------
