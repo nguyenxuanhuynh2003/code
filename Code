@@ -1,3 +1,5 @@
+check đa ngôn ngữ plugin polylang 
+if (function_exists('pll_current_language') && pll_current_language() === 'en') {
 Hàm gọi cắt ảnh ---------------------------------------------------------------------------
 /**
  * Print URL image with params by BFI thumb
